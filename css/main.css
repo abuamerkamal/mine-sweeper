@@ -1,0 +1,53 @@
+
+h1{
+   color: rgba(255, 0, 0, 0.773);
+   font-size: 60px;
+ 
+}
+
+body {
+    text-align: center;
+}
+
+td {
+    width: 40px;
+    height: 40px;
+}
+
+.hide-board-cell {
+    background-color: darkgray;
+}
+
+.show-board-cell {
+    background-color: rgb(226, 224, 220);
+}
+
+table {
+    margin: auto;
+    cursor: pointer;
+}
+
+.img-container {
+    background-color: rgba(245, 243, 243, 0.977);
+    height: 1000px;
+    background-image: url(../img/01.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 20px;
+}
+
+
+button{
+    cursor: pointer;
+    background-color: aqua;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    font-size: 20px;
+    
+
+}
+
+button:hover{
+    background-color: red;
+}
