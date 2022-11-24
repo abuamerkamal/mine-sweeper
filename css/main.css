@@ -5,6 +5,14 @@ h1{
  
 }
 
+h2{
+   color: rgb(114, 141, 7);
+}
+
+h3{
+    color: brown;
+}
+
 body {
     text-align: center;
 }
@@ -44,10 +52,13 @@ button{
     width: 100px;
     border-radius: 10px;
     font-size: 20px;
-    
-
+    margin-top: 20px;
 }
 
 button:hover{
     background-color: red;
+}
+
+.smiley{
+    cursor: pointer;
 }

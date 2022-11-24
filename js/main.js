@@ -44,8 +44,8 @@ function levelHard() {
 
 
 function initGame() {
-       document.querySelector('.smiley').innerHTML = START_GAME
-       document.querySelector('.lives-left').innerHTML = '❤️' .repeat(3)
+    document.querySelector('.smiley').innerHTML = START_GAME
+    document.querySelector('.lives-left').innerHTML = '❤️'.repeat(3)
     gGame.shownCount = 0
     gGame.markedCount = 0
     gGame.secsPassed = 0
@@ -115,7 +115,7 @@ function renderBoard(board) {
                 str = EMPTY
                 className += ' hide-board-cell'
             }
-            strHTML += `<td class="${className}" onclick="cellClicked(this, ${i},${j})"oncontextmenu="cellMarked(this)" >${str}</td>`
+            strHTML += `<td class="${className}" onclick="cellClicked(this, ${i}, ${j})"oncontextmenu="cellMarked(this)" >${str}</td>`
         }
         strHTML += '</tr>'
     }
@@ -124,38 +124,8 @@ function renderBoard(board) {
     elContainer.innerHTML = strHTML
 }
 
-
-// function cellClicked(elCell, i, j) {
-//     if (elCell.innerHTML === FLAG) return
-//     if (gGame.shownCount !== 0) {
-//         if (!gGame.isOn) return
-//         const cell = gBoard[i][j]
-//         if (cell.isShown) return
-//         if (cell.isMine) {
-//             clickedBomba(elCell)
-//             return
-//         }
-//         if (!cell.minesAroundCount) {
-//             expandShown(gBoard, i, j)
-//             return
-//         }
-//         gGame.shownCount++
-//         cell.isShown = true
-//         var str
-//         str = colourfulMinesAroundCount(cell.minesAroundCount)
-//         elCell.innerHTML = str
-//         elCell.classList.replace('hide-board-cell', 'show-board-cell')
-//         if (checkGameOver()) gameOver()
-//     } else firstCellClicked(i, j)
-// }
-
-
-
-
-
 function cellClicked(elCell, i, j) {
     if (elCell.innerHTML === FLAG) return
-    // if (isManuallyCreateClick) return initManuallyCreate({i, j})
     if (gGame.shownCount !== 0) {
         if (!gGame.isOn) return
         const cell = gBoard[i][j]
@@ -177,14 +147,6 @@ function cellClicked(elCell, i, j) {
         if (checkGameOver()) gameOver()
     } else firstCellClicked(i, j)
 }
-
-
-
-
-
-
-
-
 
 function firstCellClicked(i, j) {
     const cell = gBoard[i][j]
@@ -252,43 +214,28 @@ function clickedBomba(elCell) {
     gameOver()
 }
 
-// function cellMarked() {
-//     if (elCell.innerHTML === FLAG) {
-//         elCell.innerHTML = EMPTY
-//         gGame.markedCount--
-//     } else {
-//         elCell.innerHTML = FLAG
-//         gGame.markedCount++
-//         if (checkGameOver()) gameOver()
-//     }
-// }
-
-function cellMarked(elCell, i, j, event) {
-    event.preventDefault()
-    const cell = gBoard[i][j]
-    if (!cell.isShown) {
-        if (!cell.isMarked) {
-            cell.isMarked = true
-            elCell.ineerHTML = FLAG
-            gGame.markedCount++
-        } else {
-            cell.isMarked = false
-            elCell.ineerHTML = ''
-            gGame.markedCount--
-        }
+function cellMarked() {
+    if (elCell.innerHTML === FLAG) {
+        elCell.innerHTML = EMPTY
+        gGame.markedCount--
+    } else {
+        elCell.innerHTML = FLAG
+        gGame.markedCount++
+        if (checkGameOver()) gameOver()
     }
-    checkGameOver()
 }
 
-
-
-
-function gameOver() {
-    elSmiley = document.querySelector('.smiley')
-    if (checkGameOver()) elSmiley.innerHTML = WIN
-    else elSmiley.innerHTML = LOSE
+function gameOver(isVictory) {
     gGame.isOn = false
-    clearInterval(gTimeInterval)
+    clearInterval(gScoreInterval)
+    if (isVictory) {
+        const elBtn = document.querySelector('.main-btn')
+        elBtn.innerText = '😎'
+    } else {
+        const elBtn = document.querySelector('.main-btn')
+        elBtn.innerText = '☹️'
+        revealMines()
+    }
 }
 
 function checkGameOver() {
@@ -302,10 +249,10 @@ function expandShown(board, rowIdx, colIdx) {
             if (j < 0 || j >= board[i].length) continue
             if (i === rowIdx && j === colIdx) continue
             const cell = board[i][j]
-            if(cell.isShown) continue
+            if (cell.isShown) continue
             gGame.shownCount++
             cell.isShown = true
-            renderCell({i, j}, colourfulMinesAroundCount(cell.minesAroundCount))
+            renderCell({ i, j }, colourfulMinesAroundCount(cell.minesAroundCount))
             if (!cell.minesAroundCount) expandShown(board, i, j)
         }
     }
